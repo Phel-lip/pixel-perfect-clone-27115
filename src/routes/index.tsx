@@ -141,52 +141,41 @@ function SectionTitle({ eyebrow, title, sub }: { eyebrow: string; title: React.R
   );
 }
 
-function PhotoCard({ s, onBook }: { s: Service; onBook: (id: string) => void }) {
-  const [active, setActive] = useState(0);
+function ServiceCard({ s, img, showCopy, onBook }: { s: Service; img: string; showCopy: boolean; onBook: (id: string) => void }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-3xl bg-card shadow-soft">
       <div className="relative aspect-[4/5] overflow-hidden">
-        <img src={s.imgs[active]} alt={`${s.title} — trabalho do Sofia Cabelos`} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-                {s.imgs.length > 1 && <div className="absolute bottom-3 left-3 flex gap-2">
-          {s.imgs.map((im, i) => (
-            <button key={i} onClick={() => setActive(i)} aria-label={`Ver foto ${i + 1} de ${s.title}`} className={`h-12 w-10 overflow-hidden rounded-lg border-2 ${i === active ? "border-card" : "border-transparent opacity-75"}`}>
-              <img src={im} alt="" className="h-full w-full object-cover" />
-            </button>
-          ))}
-        </div>}
+        <img src={img} alt={`${s.title} — trabalho do Sofia Cabelos`} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
       </div>
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-3xl leading-tight">{s.title}</h3>
-        <p className="mt-2 flex-1 text-sm text-muted-foreground">{s.copy}</p>
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="font-display text-2xl leading-tight">{s.title}</h3>
+        <p className="mt-2 flex-1 text-sm text-muted-foreground">{showCopy ? s.copy : null}</p>
         <p className="mt-4 text-xs uppercase tracking-wider text-primary">Valor sob consulta</p>
-        <button onClick={() => onBook(s.id)} className="mt-3 rounded-full bg-primary px-4 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90">{s.cta}</button>
+        <button onClick={() => onBook(s.id)} className="mt-3 rounded-full border border-primary px-4 py-2.5 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground">{s.cta}</button>
       </div>
-    </article>
-  );
-}
-
-function TextCard({ s, onBook }: { s: Service; onBook: (id: string) => void }) {
-  return (
-    <article className="flex flex-col rounded-3xl border bg-card p-6">
-      {s.thumb && <img src={s.thumb} alt={`${s.title} — trabalho do Sofia Cabelos`} className="h-20 w-20 rounded-full border-4 border-secondary object-cover" />}
-      <h3 className="mt-4 font-display text-2xl leading-tight">{s.title}</h3>
-      <p className="mt-2 flex-1 text-sm text-muted-foreground">{s.copy}</p>
-      <p className="mt-4 text-xs uppercase tracking-wider text-primary">Valor sob consulta</p>
-      <button onClick={() => onBook(s.id)} className="mt-3 rounded-full border border-primary px-4 py-2.5 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground">{s.cta}</button>
     </article>
   );
 }
 
 function Services({ onBook }: { onBook: (id: string) => void }) {
-  const list = SERVICES;
-  const photo = list.filter((s) => s.imgs.length);
-  const text = list.filter((s) => !s.imgs.length);
+  const [tab, setTab] = useState<string>("todos");
+  const active = SERVICES.find((s) => s.id === tab);
+  const pill = (on: boolean) => `shrink-0 snap-start rounded-full border px-5 py-2.5 text-sm transition ${on ? "border-primary bg-primary text-primary-foreground" : "bg-card hover:border-primary"}`;
   return (
     <section id="servicos" className="scroll-mt-20 bg-secondary/50 py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5">
         <SectionTitle eyebrow="Nossos serviços" title={<>Cor com <em className="text-brand">luz e movimento.</em></>} sub="Fotos de trabalhos do Sofia Cabelos. Escolha o serviço e solicite um horário." />
-        {photo.length > 0 && <div className="grid gap-6 md:grid-cols-2">{photo.map((s) => <PhotoCard key={s.id} s={s} onBook={onBook} />)}</div>}
-        {text.length > 0 && <div className={`grid gap-5 sm:grid-cols-2 ${photo.length ? "mt-6" : ""}`}>{text.map((s) => <TextCard key={s.id} s={s} onBook={onBook} />)}</div>}
+        <div className="-mx-5 mb-8 flex snap-x gap-3.5 overflow-x-auto px-5 pb-2 sm:gap-4" role="tablist" aria-label="Filtrar serviços">
+          <button role="tab" aria-selected={tab === "todos"} onClick={() => setTab("todos")} className={pill(tab === "todos")}>Todos</button>
+          {SERVICES.map((s) => (
+            <button key={s.id} role="tab" aria-selected={tab === s.id} onClick={() => setTab(s.id)} className={pill(tab === s.id)}>{s.title}</button>
+          ))}
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {active
+            ? active.imgs.map((img, i) => <ServiceCard key={`${active.id}-${i}`} s={active} img={img} showCopy={i === 0} onBook={onBook} />)
+            : SERVICES.filter((s) => s.imgs.length).map((s) => <ServiceCard key={s.id} s={s} img={s.imgs[0]} showCopy onBook={onBook} />)}
+        </div>
       </div>
     </section>
   );
