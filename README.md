@@ -1,7 +1,7 @@
 # Pixel Perfect
 
 Implement exactly the screenshot and nothing else
-
+aa
 This project was built with [Lovable](https://lovable.dev).
 
 **Live app**: https://pixel-perfect-clone-27115.lovable.app
