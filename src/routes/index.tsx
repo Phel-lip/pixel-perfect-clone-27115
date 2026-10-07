@@ -153,7 +153,7 @@ function PhotoCard({ s, onBook }: { s: Service; onBook: (id: string) => void }) 
               <img src={im} alt="" className="h-full w-full object-cover" />
             </button>
           ))}
-        </div>
+        </div>}
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h3 className="font-display text-3xl leading-tight">{s.title}</h3>
