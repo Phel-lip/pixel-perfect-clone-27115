@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, MapPin, Clock, Phone, Instagram, Star, ChevronDown, Menu, X, ExternalLink, MessageCircle } from "lucide-react";
-import { SALON, SERVICES, CATEGORIES, type Service } from "@/lib/salon";
+import { SALON, SERVICES, type Service } from "@/lib/salon";
 import { BookingModal } from "@/components/BookingModal";
 import before from "@/assets/hair-before.png";
 import after from "@/assets/hair-after.png";
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Sofia Cabelos — Salão em Nazaré, Natal/RN | Solicite seu horário" },
-      { name: "description", content: "Morena iluminada, loiros e platinados, manicure, sobrancelhas e depilação em Nossa Senhora de Nazaré, Natal. Solicite seu horário pelo WhatsApp." },
+      { name: "description", content: "Morena iluminada, loiros, platinados e vermelhos em Nossa Senhora de Nazaré, Natal. Solicite seu horário pelo WhatsApp." },
       { property: "og:title", content: "Sofia Cabelos — Mais que beleza, experiência única" },
       { property: "og:description", content: "Salão de beleza em Nossa Senhora de Nazaré, Natal/RN. Solicite seu horário pelo WhatsApp." },
       { property: "og:type", content: "website" },
@@ -86,7 +86,7 @@ function Hero({ onBook }: { onBook: () => void }) {
             Mais que beleza, <em className="text-brand">experiência única.</em>
           </h1>
           <p className="mt-6 max-w-md text-lg text-muted-foreground">
-            Morena iluminada, loiros e platinados feitos com cuidado — além de unhas, sobrancelhas e depilação no mesmo lugar.
+            Morena iluminada, loiros, platinados e vermelhos — cor feita com cuidado, do primeiro tom à finalização.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <button onClick={onBook} className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 font-medium text-primary-foreground shadow-soft transition hover:opacity-90">
@@ -110,7 +110,7 @@ function Hero({ onBook }: { onBook: () => void }) {
   );
 }
 
-const MARQUEE_ITEMS = ["MORENA ILUMINADA", "LOIRO", "PLATINADO", "MANICURE", "SOBRANCELHAS", "DEPILAÇÃO"] as const;
+const MARQUEE_ITEMS = ["MORENA ILUMINADA", "LOIRO ILUMINADO", "PLATINADAS", "VERMELHO", "COLORAÇÃO"] as const;
 
 function ServiceMarquee() {
   return (
@@ -147,8 +147,7 @@ function PhotoCard({ s, onBook }: { s: Service; onBook: (id: string) => void }) 
     <article className="group flex flex-col overflow-hidden rounded-3xl bg-card shadow-soft">
       <div className="relative aspect-[4/5] overflow-hidden">
         <img src={s.imgs[active]} alt={`${s.title} — trabalho do Sofia Cabelos`} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-        <span className="absolute left-3 top-3 rounded-full bg-card/90 px-3 py-1 text-xs font-medium">{s.category}</span>
-        <div className="absolute bottom-3 left-3 flex gap-2">
+                <div className="absolute bottom-3 left-3 flex gap-2">
           {s.imgs.map((im, i) => (
             <button key={i} onClick={() => setActive(i)} aria-label={`Ver foto ${i + 1} de ${s.title}`} className={`h-12 w-10 overflow-hidden rounded-lg border-2 ${i === active ? "border-card" : "border-transparent opacity-75"}`}>
               <img src={im} alt="" className="h-full w-full object-cover" />
@@ -169,7 +168,7 @@ function PhotoCard({ s, onBook }: { s: Service; onBook: (id: string) => void }) 
 function TextCard({ s, onBook }: { s: Service; onBook: (id: string) => void }) {
   return (
     <article className="flex flex-col rounded-3xl border bg-card p-6">
-      <span className="w-fit rounded-full bg-secondary px-3 py-1 text-xs font-medium">{s.category}</span>
+      {s.thumb && <img src={s.thumb} alt={`${s.title} — trabalho do Sofia Cabelos`} className="h-20 w-20 rounded-full border-4 border-secondary object-cover" />}
       <h3 className="mt-4 font-display text-2xl leading-tight">{s.title}</h3>
       <p className="mt-2 flex-1 text-sm text-muted-foreground">{s.copy}</p>
       <p className="mt-4 text-xs uppercase tracking-wider text-primary">Valor sob consulta</p>
@@ -179,21 +178,15 @@ function TextCard({ s, onBook }: { s: Service; onBook: (id: string) => void }) {
 }
 
 function Services({ onBook }: { onBook: (id: string) => void }) {
-  const [cat, setCat] = useState<(typeof CATEGORIES)[number]>("Todos");
-  const list = cat === "Todos" ? SERVICES : SERVICES.filter((s) => s.category === cat);
+  const list = SERVICES;
   const photo = list.filter((s) => s.imgs.length);
   const text = list.filter((s) => !s.imgs.length);
   return (
     <section id="servicos" className="scroll-mt-20 bg-secondary/50 py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5">
         <SectionTitle eyebrow="Nossos serviços" title={<>Cor com <em className="text-brand">luz e movimento.</em></>} sub="Fotos de trabalhos do Sofia Cabelos. Escolha o serviço e solicite um horário." />
-        <div className="-mx-5 mb-8 flex snap-x gap-3 overflow-x-auto px-5 pb-2">
-          {CATEGORIES.map((c) => (
-            <button key={c} onClick={() => setCat(c)} className={`shrink-0 snap-start rounded-full border px-5 py-2.5 text-sm transition ${cat === c ? "border-primary bg-primary text-primary-foreground" : "bg-card hover:border-primary"}`}>{c}</button>
-          ))}
-        </div>
         {photo.length > 0 && <div className="grid gap-6 md:grid-cols-2">{photo.map((s) => <PhotoCard key={s.id} s={s} onBook={onBook} />)}</div>}
-        {text.length > 0 && <div className={`grid gap-5 sm:grid-cols-3 ${photo.length ? "mt-6" : ""}`}>{text.map((s) => <TextCard key={s.id} s={s} onBook={onBook} />)}</div>}
+        {text.length > 0 && <div className={`grid gap-5 sm:grid-cols-2 ${photo.length ? "mt-6" : ""}`}>{text.map((s) => <TextCard key={s.id} s={s} onBook={onBook} />)}</div>}
       </div>
     </section>
   );
