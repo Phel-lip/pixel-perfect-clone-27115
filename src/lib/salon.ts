@@ -7,8 +7,8 @@ import loiro1 from "@/assets/sofia-loiro-1.jpg";
 import loiro2 from "@/assets/sofia-loiro-2.jpg";
 import loiro3 from "@/assets/sofia-loiro-3.jpg";
 import loiro4 from "@/assets/sofia-loiro-4.jpg";
-import platinado from "@/assets/sofia-platinado.jpg";
-import vermelho from "@/assets/sofia-vermelho.jpg";
+import platinado1 from "@/assets/sofia-platinado-1.jpg";
+import vermelho1 from "@/assets/sofia-vermelho-1.jpg";
 import destaque3 from "@/assets/sofia-destaque-3.jpg";
 
 export const SALON = {
@@ -40,8 +40,8 @@ export type Service = {
 export const SERVICES: Service[] = [
   { id: "morena-iluminada", title: "Morena iluminada", copy: "Luzes que trazem dimensão e brilho para cabelos castanhos, com transição suave da raiz às pontas.", cta: "Quero horário para morena iluminada", imgs: [morena1, morena2, destaque1], pros: [] },
   { id: "loiro-iluminado", title: "Loiro iluminado", copy: "Loiros luminosos, do mel ao mais claro, finalizados com ondas e movimento.", cta: "Quero horário para loiro", imgs: [loiro1, loiro2, loiro3, loiro4], pros: [] },
-  { id: "platinadas", title: "Platinadas", copy: "Tons platinados e acinzentados para quem quer um loiro bem frio e claro.", cta: "Quero horário para platinado", imgs: [], thumb: platinado, pros: [] },
-  { id: "vermelho", title: "Vermelho", copy: "Ruivos e vermelhos intensos, com cor viva e brilho.", cta: "Quero horário para vermelho", imgs: [], thumb: vermelho, pros: [] },
+  { id: "platinadas", title: "Platinadas", copy: "Tons platinados e acinzentados para quem quer um loiro bem frio e claro.", cta: "Quero horário para platinado", imgs: [platinado1], thumb: platinado1, pros: [] },
+  { id: "vermelho", title: "Vermelho", copy: "Ruivos e vermelhos intensos, com cor viva e brilho.", cta: "Quero horário para vermelho", imgs: [vermelho1], thumb: vermelho1, pros: [] },
 ];
 
 export const PERIODS = ["Manhã (9h–12h)", "Tarde (12h–18h)"];
