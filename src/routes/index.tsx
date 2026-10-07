@@ -174,7 +174,7 @@ function Services({ onBook }: { onBook: (id: string) => void }) {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {active
             ? active.imgs.map((img, i) => <ServiceCard key={`${active.id}-${i}`} s={active} img={img} showCopy={i === 0} onBook={onBook} />)
-            : SERVICES.filter((s) => s.imgs.length).map((s) => <ServiceCard key={s.id} s={s} img={s.imgs[0]} showCopy onBook={onBook} />)}
+            : SERVICES.flatMap((s) => (s.imgs[0] ? [<ServiceCard key={s.id} s={s} img={s.imgs[0]} showCopy onBook={onBook} />] : []))}
         </div>
       </div>
     </section>
