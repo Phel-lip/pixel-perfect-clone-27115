@@ -94,10 +94,10 @@ export function BookingModal({ open, initialService, onClose }: { open: boolean;
               {SERVICES.map((s) => (
                 <button key={s.id} onClick={() => pick(s.id)}
                   className={`flex items-center gap-3 rounded-2xl border p-2 text-left transition hover:border-primary ${serviceId === s.id ? "border-primary bg-secondary" : ""}`}>
-                  {s.imgs[0] ? <img src={s.imgs[0]} alt="" className="h-14 w-14 rounded-xl object-cover" /> : <span className="flex h-14 w-14 items-center justify-center rounded-xl bg-secondary font-display text-xl text-primary">{s.title[0]}</span>}
+                  {(s.imgs[0] ?? s.thumb) ? <img src={s.imgs[0] ?? s.thumb} alt="" className="h-14 w-14 rounded-xl object-cover" /> : <span className="flex h-14 w-14 items-center justify-center rounded-xl bg-secondary font-display text-xl text-primary">{s.title[0]}</span>}
                   <div className="min-w-0 flex-1">
                     <p className="font-medium">{s.title}</p>
-                    <p className="text-xs text-muted-foreground">{s.category} · Valor sob consulta</p>
+                    <p className="text-xs text-muted-foreground">Valor sob consulta</p>
                   </div>
                 </button>
               ))}
