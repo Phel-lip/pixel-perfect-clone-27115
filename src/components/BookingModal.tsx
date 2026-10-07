@@ -54,7 +54,6 @@ export function BookingModal({ open, initialService, onClose }: { open: boolean;
       `Olá, ${SALON.name}! Gostaria de solicitar um horário:`,
       ``,
       `• Serviço: ${service.title}`,
-      `• Profissional: ${pro}`,
       `• Data preferida: ${fmtDate(date)}`,
       `• Período preferido: ${period || "A combinar"}`,
       ...(notes.trim() ? [`• Observação: ${notes.trim()}`] : []),
@@ -144,7 +143,7 @@ export function BookingModal({ open, initialService, onClose }: { open: boolean;
           {step === "Resumo" && service && (
             <div className="grid gap-4">
               <dl className="divide-y rounded-2xl border">
-                {[["Serviço", service.title], ["Profissional", pro], ["Data preferida", fmtDate(date)], ["Período preferido", period || "A combinar"], ["Valor", "Sob consulta"], ...(notes.trim() ? [["Observação", notes.trim()]] : [])].map(([k, v]) => (
+                {[["Serviço", service.title], ["Data preferida", fmtDate(date)], ["Período preferido", period || "A combinar"], ["Valor", "Sob consulta"], ...(notes.trim() ? [["Observação", notes.trim()]] : [])].map(([k, v]) => (
                   <div key={k} className="flex justify-between gap-4 px-4 py-3 text-sm">
                     <dt className="text-muted-foreground">{k}</dt>
                     <dd className="text-right font-medium break-words">{v}</dd>
