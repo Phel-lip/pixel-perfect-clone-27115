@@ -98,7 +98,7 @@ function Hero({ onBook }: { onBook: () => void }) {
         </div>
         <div className="relative mx-auto w-full max-w-md">
           <div className="absolute -inset-3 rotate-3 rounded-[2.5rem] bg-brand opacity-90" />
-          <img src={SALON.heroImg} alt="Cliente com loiro iluminado e ondas no Sofia Cabelos" className="relative aspect-[4/5] w-full rounded-[2.5rem] object-cover shadow-soft" />
+          <img src={SALON.heroImg} alt="Cliente com morena iluminada e ondas no Sofia Cabelos" className="relative aspect-[4/5] w-full rounded-[2.5rem] object-cover shadow-soft" />
           <div className="absolute -bottom-6 -left-2 flex gap-2 sm:-left-6">
             {SALON.heroThumbs.map((t, i) => (
               <img key={i} src={t} alt="Trabalho de coloração do Sofia Cabelos" className="h-24 w-20 rounded-2xl border-4 border-card object-cover shadow-soft" />
