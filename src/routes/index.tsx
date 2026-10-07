@@ -217,7 +217,7 @@ function BeforeAfter() {
 }
 
 const REVIEWS = [
-  { text: "Cabeleireira, Manicure e depiladora excelentes profissionais, sou cliente a muitos anos.", service: "Cabelo, unhas e depilação" },
+  { text: "Maravilha, ótimo espaço!!", service: "Espaço" },
   { text: "Excelente serviço e atendimento VIP.", service: "Atendimento" },
   { text: "Visito sempre é amor as profissionais de lá !!", service: "Equipe" },
 ];
@@ -229,7 +229,7 @@ function Reviews() {
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
             <p className="mb-3 text-xs uppercase tracking-[0.25em] text-honey">Avaliações</p>
-            <h2 className="font-display text-4xl leading-tight sm:text-5xl">Clientes de <em>muitos anos.</em></h2>
+            <h2 className="font-display text-4xl leading-tight sm:text-5xl">Quem vem, <em>volta.</em></h2>
           </div>
           <div className="flex items-center gap-3">
             <span className="font-display text-5xl">4,8</span>
