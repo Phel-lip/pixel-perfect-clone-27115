@@ -174,7 +174,7 @@ function Services({ onBook }: { onBook: (id: string) => void }) {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {active
             ? active.imgs.map((img, i) => <ServiceCard key={`${active.id}-${i}`} s={active} img={img} showCopy={i === 0} onBook={onBook} />)
-            : SERVICES.filter((s) => s.imgs.length).map((s) => <ServiceCard key={s.id} s={s} img={s.imgs[0]} showCopy onBook={onBook} />)}
+            : SERVICES.flatMap((s) => (s.imgs[0] ? [<ServiceCard key={s.id} s={s} img={s.imgs[0]} showCopy onBook={onBook} />] : []))}
         </div>
       </div>
     </section>
@@ -238,6 +238,15 @@ function Reviews() {
           ))}
         </div>
         <p className="mt-6 text-xs opacity-60">Avaliações públicas de clientes no Google.</p>
+        <div className="mt-8 flex flex-col items-center gap-5 rounded-3xl bg-card px-6 py-8 text-center text-card-foreground shadow-soft sm:flex-row sm:text-left">
+          <div className="flex-1">
+            <h3 className="font-display text-2xl sm:text-3xl">Foi atendida no {SALON.name}?</h3>
+            <p className="mt-1 text-sm text-muted-foreground">Sua avaliação no Google ajuda outras pessoas a nos encontrarem.</p>
+          </div>
+          <a href={SALON.maps} target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground hover:opacity-90">
+            <Star className="h-4 w-4 fill-current" /> Avaliar no Google
+          </a>
+        </div>
       </div>
     </section>
   );
