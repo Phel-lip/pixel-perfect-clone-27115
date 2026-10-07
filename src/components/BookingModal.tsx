@@ -40,7 +40,7 @@ export function BookingModal({ open, initialService, onClose }: { open: boolean;
   const hasPros = (service?.pros.length ?? 0) > 0;
   const steps: Step[] = ["Serviço", ...(hasPros ? (["Profissional"] as Step[]) : []), "Preferências", "Resumo"];
   const idx = steps.indexOf(step);
-  const back = () => setStep(steps[idx - 1]);
+  const back = () => setStep(steps[Math.max(0, idx - 1)] ?? "Serviço");
   const pick = (id: string) => {
     const s = SERVICES.find((x) => x.id === id)!;
     if (!s.pros.includes(pro)) setPro(NO_PREF);
