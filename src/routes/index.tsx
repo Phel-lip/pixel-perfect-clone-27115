@@ -147,13 +147,13 @@ function PhotoCard({ s, onBook }: { s: Service; onBook: (id: string) => void }) 
     <article className="group flex flex-col overflow-hidden rounded-3xl bg-card shadow-soft">
       <div className="relative aspect-[4/5] overflow-hidden">
         <img src={s.imgs[active]} alt={`${s.title} — trabalho do Sofia Cabelos`} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-                <div className="absolute bottom-3 left-3 flex gap-2">
+                {s.imgs.length > 1 && <div className="absolute bottom-3 left-3 flex gap-2">
           {s.imgs.map((im, i) => (
             <button key={i} onClick={() => setActive(i)} aria-label={`Ver foto ${i + 1} de ${s.title}`} className={`h-12 w-10 overflow-hidden rounded-lg border-2 ${i === active ? "border-card" : "border-transparent opacity-75"}`}>
               <img src={im} alt="" className="h-full w-full object-cover" />
             </button>
           ))}
-        </div>
+        </div>}
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h3 className="font-display text-3xl leading-tight">{s.title}</h3>
